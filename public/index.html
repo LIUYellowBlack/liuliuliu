@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #4cae4c;
+        }
+        .form-group button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <div class="form-group">
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" placeholder="Enter password">
+        </div>
+        <button onclick="login()">Login</button>
+        <button id="register-btn">Register</button>
+        
+    </div>
+
+    <div class="container" id="register-container" style="display: none;">
+        <h2>Register</h2>
+        <div class="form-group">
+            <label for="register-username">Username:</label>
+            <input type="text" id="register-username" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+            <label for="register-email">Email:</label>
+            <input type="email" id="register-email" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="register-password">Password:</label>
+            <input type="password" id="register-password" placeholder="Enter password">
+        </div>
+        <div class="form-group">
+            <label for="register-confirm-password">Confirm Password:</label>
+            <input type="password" id="register-confirm-password" placeholder="Confirm password">
+        </div>
+        <button onclick="registerUser()">Register</button>
+    </div>
+
+    <script>
+        function login() {
+            // Your login logic here
+            console.log('Logging in with username:', document.getElementById('login-username').value, 'and password:', document.getElementById('login-password').value);
+        }
+
+        function register() {
+            var registerContainer = document.getElementById('register-container');
+            registerContainer.style.display = 'block'; // 显示注册界面
+            document.querySelector('.container').style.display = 'none'; // 隐藏登录界面
+
+            // 动态添加"Back to Login"按钮
+            if (!document.getElementById('back-to-login-btn')) {
+                var backToLoginBtn = document.createElement('button');
+                backToLoginBtn.id = 'back-to-login-btn';
+                backToLoginBtn.textContent = 'Back to Login';
+                backToLoginBtn.onclick = backToLogin;
+                registerContainer.appendChild(backToLoginBtn);
+            }
+        }
+
+        function backToLogin() {
+            var registerContainer = document.getElementById('register-container');
+            registerContainer.style.display = 'none'; // 隐藏注册界面
+            document.querySelector('.container').style.display = 'block'; // 显示登录界面
+
+            // 移除"Back to Login"按钮
+            var backToLoginBtn = document.getElementById('back-to-login-btn');
+            if (backToLoginBtn) {
+                registerContainer.removeChild(backToLoginBtn);
+            }
+        }
+
+
+
+        function registerUser() {
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            // Call your backend API to register the user
+            // This is a placeholder for your actual API call
+            console.log('Registering user with username:', username, 'email:', email, 'password:', password);
+
+            // Redirect to login page
+            window.location.href = 'login.html';
+        }
+
+        document.getElementById('register-btn').addEventListener('click', register);
+        // Add this to the submit event of the register form
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting
+            registerUser(); // Call the registerUser function
+        });
+        
+
+
+    </script>
+</body>
+</html>'```
+
